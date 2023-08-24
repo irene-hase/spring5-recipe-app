@@ -1,13 +1,6 @@
 package guru.springframework.domian;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -22,7 +15,6 @@ public class Recipe {
 	private String source;
 	private String url;
 	private String direction;
-//	private Difficulty difficulty;
 
 	/** {@code "recipe"} target property of {@link Ingredient#recipe}*/
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
@@ -31,6 +23,9 @@ public class Recipe {
 	private Byte[] image;
 	@OneToOne(cascade = CascadeType.ALL)
 	private Notes notes;
+
+	@Enumerated(value = EnumType.STRING)
+	private Difficulty difficulty;
 
 	public Long getId()
 	{
@@ -140,5 +135,14 @@ public class Recipe {
 	public void setNotes(Notes notes)
 	{
 		this.notes = notes;
+	}
+	public Difficulty getDifficulty()
+	{
+		return difficulty;
+	}
+
+	public void setDifficulty(Difficulty difficulty)
+	{
+		this.difficulty = difficulty;
 	}
 }
